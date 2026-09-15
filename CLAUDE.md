@@ -22,6 +22,17 @@ Use the Maven wrapper (`mvnw.cmd` on Windows / `./mvnw` on Unix shells) — no l
 
 Note: `src/main/resources/application.yaml` only sets `spring.application.name`. There is no `spring.datasource.*` configured, even though the PostgreSQL driver and Spring Data JPA are dependencies — a datasource must be supplied (e.g. via env vars or an `application-local.yaml`/profile) before the app can start against a real database.
 
+## Workflow
+
+For any task that changes code (feature, bug fix, refactor, text/doc update), work this way without needing to be asked each time:
+
+1. Create a new branch off `main` before editing (e.g. `feat/<short-name>` or `fix/<short-name>`) — every task gets its own branch, however small.
+2. Make the change.
+3. Run `.\mvnw.cmd test`. If it fails, stop and report the failure instead of continuing or committing.
+4. If tests pass, commit locally with a descriptive message.
+
+Do **not** push to the remote or merge/switch back to `main` without explicit request — those remain confirm-first since they affect shared state. This is a plain sequential workflow (each step depends on the last), so do it directly rather than delegating steps to subagents.
+
 ## Architecture
 
 Standard layered package structure under `com.mfpr.academia`:
