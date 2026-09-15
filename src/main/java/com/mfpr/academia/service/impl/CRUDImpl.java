@@ -21,8 +21,8 @@ public abstract class CRUDImpl<T, ID> implements ICRUD<T, ID> {
         // Validate that it exists
         T _ = findById(id);
 
-        // Create the Method Java Object
-        Method setIdMethod = t.getClass().getMethod("setId", id.getClass());
+        // Create the Method Java Object (entities use a primitive int id, per convention)
+        Method setIdMethod = t.getClass().getMethod("setId", int.class);
 
         // Invoke it to perform the update
         setIdMethod.invoke(t, id);
