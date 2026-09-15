@@ -28,8 +28,8 @@ public class GlobalErrorHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<CustomErrorResponse> handleModelNotFoundException(Exception ex, WebRequest request){
+    @ExceptionHandler(ModelNotFoundException.class)
+    public ResponseEntity<CustomErrorResponse> handleModelNotFoundException(ModelNotFoundException ex, WebRequest request){
 
         CustomErrorResponse error = new CustomErrorResponse(
                 LocalDateTime.now(),

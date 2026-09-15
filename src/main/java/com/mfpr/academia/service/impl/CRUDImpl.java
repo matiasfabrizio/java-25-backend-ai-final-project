@@ -1,5 +1,6 @@
 package com.mfpr.academia.service.impl;
 
+import com.mfpr.academia.exception.ModelNotFoundException;
 import com.mfpr.academia.repository.IGenericRepo;
 import com.mfpr.academia.service.ICRUD;
 
@@ -20,14 +21,8 @@ public abstract class CRUDImpl<T, ID> implements ICRUD<T, ID> {
         // Validate that it exists
         T _ = findById(id);
 
-        // Get class name using Java API Reflection
-        String className = t.getClass().getSimpleName();
-
-        // Create the method name
-        String methodName = "setId" + className;
-
         // Create the Method Java Object
-        Method setIdMethod = t.getClass().getMethod(methodName, id.getClass());
+        Method setIdMethod = t.getClass().getMethod("setId", id.getClass());
 
         // Invoke it to perform the update
         setIdMethod.invoke(t, id);
@@ -42,7 +37,8 @@ public abstract class CRUDImpl<T, ID> implements ICRUD<T, ID> {
 
     @Override
     public T findById(ID id) {
-        return getRepo().findById(id).orElseThrow();
+        return getRepo().findById(id)
+                .orElseThrow(() -> new ModelNotFoundException("No entity found with id: " + id));
     }
 
     @Override
