@@ -7,6 +7,8 @@ import com.mfpr.academia.service.IRegistrarMatriculaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class RegistrarMatriculaServiceImpl extends CRUDImpl<RegistrarMatricula, Integer> implements IRegistrarMatriculaService {
@@ -18,4 +20,16 @@ public class RegistrarMatriculaServiceImpl extends CRUDImpl<RegistrarMatricula, 
         return registrarMatriculaRepo;
     }
 
+    @Override
+    public RegistrarMatricula save(RegistrarMatricula request) {
+        request.setFechaInscripcion(LocalDateTime.now());
+        return registrarMatriculaRepo.save(request);
+    }
+
+    @Override
+    public RegistrarMatricula update(Integer id, RegistrarMatricula request) throws Exception {
+        // fechaInscripcion is server-set only; keep the original value on updates
+        request.setFechaInscripcion(findById(id).getFechaInscripcion());
+        return super.update(id, request);
+    }
 }
