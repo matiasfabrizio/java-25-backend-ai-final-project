@@ -48,4 +48,9 @@ public class EstudianteController {
         estudianteService.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/edad-desc")
+    public ResponseEntity<List<EstudianteResponseDto>> findByOrderByEdadDesc() {
+        return ResponseEntity.ok(estudianteService.findByOrderByEdadDesc().stream().map(estudianteMapper::toResponseDto).toList());
+    }
 }

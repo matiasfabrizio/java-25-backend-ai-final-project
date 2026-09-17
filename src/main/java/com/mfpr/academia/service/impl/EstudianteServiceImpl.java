@@ -7,6 +7,8 @@ import com.mfpr.academia.service.IEstudianteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class EstudianteServiceImpl extends CRUDImpl<Estudiante, Integer> implements IEstudianteService {
@@ -18,4 +20,8 @@ public class EstudianteServiceImpl extends CRUDImpl<Estudiante, Integer> impleme
         return estudianteRepo;
     }
 
+    @Override
+    public List<Estudiante> findByOrderByEdadDesc() {
+        return estudianteRepo.findByOrderByEdadDesc();
+    }
 }
