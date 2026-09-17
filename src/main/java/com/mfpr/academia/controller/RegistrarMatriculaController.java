@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,5 +48,10 @@ public class RegistrarMatriculaController {
     public ResponseEntity<Void> delete(@PathVariable int id) {
         registrarMatriculaService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/get-relation")
+    public ResponseEntity<Map<String, List<String>>> getRelation() {
+        return ResponseEntity.ok(registrarMatriculaService.getRelation());
     }
 }
