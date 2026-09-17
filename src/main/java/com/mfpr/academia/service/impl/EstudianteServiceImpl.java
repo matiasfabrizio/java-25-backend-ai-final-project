@@ -7,6 +7,7 @@ import com.mfpr.academia.service.IEstudianteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -22,6 +23,9 @@ public class EstudianteServiceImpl extends CRUDImpl<Estudiante, Integer> impleme
 
     @Override
     public List<Estudiante> findByOrderByEdadDesc() {
-        return estudianteRepo.findByOrderByEdadDesc();
+        return estudianteRepo.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Estudiante::getEdad).reversed())
+                .toList();
     }
 }
